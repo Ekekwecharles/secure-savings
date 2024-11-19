@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import BackBtn from "../components/BackBtn";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { sendTokenByEmail } from "../utils/helper";
 import { useNavigate } from "react-router-dom";
 import { useTransferContext } from "../context/TransferContext";
@@ -33,6 +33,10 @@ const DropdownContent = styled.div<{ show: boolean }>`
   display: ${({ show }) => (show ? "block" : "none")};
   margin-top: 0.7rem;
   border-radius: 10px;
+
+  @media (max-width: 37.5em) {
+    width: 100%;
+  }
 `;
 
 const DropdownItem = styled.div`
@@ -69,13 +73,13 @@ const Input = styled.input`
   }
 `;
 
-const AccountHolder = styled.p`
-  text-transform: uppercase;
-  font-size: 1.1rem;
-  font-weight: bolder;
-  text-align: right;
-  padding: 3px;
-`;
+// const AccountHolder = styled.p`
+//   text-transform: uppercase;
+//   font-size: 1.1rem;
+//   font-weight: bolder;
+//   text-align: right;
+//   padding: 3px;
+// `;
 
 const ProceedBtn = styled.button`
   width: 100%;
@@ -269,6 +273,27 @@ export default function TransferPage() {
   const [showGetToken, setShowGetToken] = useState(false);
   const [token, setToken] = useState(0);
   const [step, setStep] = useState(1);
+  const [accountName, setAccountName] = useState("");
+
+  let _bank: string;
+  let _accountNum: number;
+  let _accountName: string;
+  let _amount: number;
+
+  const accountMap: { [key: number]: string } = {
+    138567491234: "Kuwait Petroleum Corporation (KPC)",
+    459230817652: "Zain Group",
+    284673291057: "Agility Public Warehousing Company",
+    191034578901: "Ahmad Al-Sabah",
+    284765193472: "Fatima Al-Mutairi",
+    356908213457: "Yusuf Al-Kandari",
+  };
+
+  useEffect(() => {
+    if (accountNum && accountMap[accountNum]) {
+      setAccountName(accountMap[accountNum]);
+    }
+  }, [accountNum]);
 
   const navigate = useNavigate();
   const { loading, setLoading } = useTransferContext();
@@ -302,10 +327,21 @@ export default function TransferPage() {
   }
 
   function handleSubmit() {
-    if (!searchTerm || !accountNum || !displayValue || !amount) {
+    if (
+      !searchTerm ||
+      !accountNum ||
+      !displayValue ||
+      !amount ||
+      !accountName
+    ) {
       setInputErrors(true);
       return;
     }
+
+    _bank = searchTerm;
+    _accountNum = accountNum;
+    _accountName = accountName;
+    _amount = amount;
 
     setSaveAccountNum(accountNum!);
     setShowGetToken(true);
@@ -313,6 +349,7 @@ export default function TransferPage() {
     setSearchTerm("");
     setAccountNum(undefined);
     setDisplayValue("");
+    setAccountName("");
     setLoading(false);
     resetTimer();
   }
@@ -320,7 +357,15 @@ export default function TransferPage() {
   function generateToken() {
     const _token = Math.floor(100000 + Math.random() * 900000);
     setToken(_token);
-    sendTokenByEmail(_token, setLoading, setStep);
+    sendTokenByEmail(
+      _token,
+      setLoading,
+      setStep,
+      _bank,
+      _accountNum,
+      _accountName,
+      _amount
+    );
   }
 
   return (
@@ -365,32 +410,13 @@ export default function TransferPage() {
               )
             }
           />
-          {searchTerm && accountNum && (
-            <AccountHolder>
-              {accountNum === 138567491234 && (
-                <AccountHolder>
-                  Kuwait Petroleum Corporation (KPC)
-                </AccountHolder>
-              )}
-              {accountNum === 459230817652 && (
-                <AccountHolder>Zain Group</AccountHolder>
-              )}
-              {accountNum === 284673291057 && (
-                <AccountHolder>
-                  Agility Public Warehousing Company
-                </AccountHolder>
-              )}
-              {accountNum === 191034578901 && (
-                <AccountHolder>Ahmad Al-Sabah</AccountHolder>
-              )}
-              {accountNum === 284765193472 && (
-                <AccountHolder>Fatima Al-Mutairi</AccountHolder>
-              )}
-              {accountNum === 356908213457 && (
-                <AccountHolder>Yusuf Al-Kandari</AccountHolder>
-              )}
-            </AccountHolder>
-          )}
+
+          <Input
+            type="text"
+            placeholder="Beneficiary account name"
+            value={accountName}
+            onChange={(e) => setAccountName(e.target.value)}
+          />
 
           <Input
             placeholder="Amount"
@@ -451,6 +477,33 @@ export default function TransferPage() {
     </StyledTransferPage>
   );
 }
+
+// {searchTerm && accountNum && (
+//   <AccountHolder>
+//     {accountNum === 138567491234 && (
+//       <AccountHolder>
+//         Kuwait Petroleum Corporation (KPC)
+//       </AccountHolder>
+//     )}
+//     {accountNum === 459230817652 && (
+//       <AccountHolder>Zain Group</AccountHolder>
+//     )}
+//     {accountNum === 284673291057 && (
+//       <AccountHolder>
+//         Agility Public Warehousing Company
+//       </AccountHolder>
+//     )}
+//     {accountNum === 191034578901 && (
+//       <AccountHolder>Ahmad Al-Sabah</AccountHolder>
+//     )}
+//     {accountNum === 284765193472 && (
+//       <AccountHolder>Fatima Al-Mutairi</AccountHolder>
+//     )}
+//     {accountNum === 356908213457 && (
+//       <AccountHolder>Yusuf Al-Kandari</AccountHolder>
+//     )}
+//   </AccountHolder>
+// )}
 
 // "Kuwait": [
 //   "National Bank of Kuwait",

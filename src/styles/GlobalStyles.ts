@@ -10,6 +10,10 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  * {
+    /* border: 1px solid red; */
+  }
+
   html {
     font-size: 62.5%;
 

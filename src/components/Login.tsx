@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import { GrSchedule } from "react-icons/gr";
 import { FaLocationDot } from "react-icons/fa6";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { getPassword } from "../firebase/apiFirebase";
 
 const StyledLoginForm = styled.div`
   color: white;
@@ -174,16 +175,25 @@ export default function Login() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [savedPassword, setSavedPassword] = useState("");
 
   const { setIsAuthenticated } = useAuth();
-
   const navigate = useNavigate();
+
+  useEffect(function () {
+    async function getpassword() {
+      const password = await getPassword();
+      setSavedPassword(password!);
+    }
+
+    getpassword();
+  }, []);
 
   function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     if (!username && !password) return;
 
-    if (username !== login.username && password !== login.password) {
+    if (username !== login.username && password !== savedPassword) {
       setError(true);
       return;
     }

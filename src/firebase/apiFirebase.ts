@@ -187,3 +187,63 @@ export async function getTransactionsMessages() {
 //     alert("An error occurred while updating the showBank.");
 //   }
 // }
+
+// PASSWORD
+export async function setPassword() {
+  console.log("Button Clicked");
+
+  const db = getDatabase(app);
+  const newDocRef = push(ref(db, "boa/password"));
+
+  try {
+    await set(newDocRef, { password: "SErgey1987$$" });
+    console.log("Well done");
+    alert("Password data added to database successfully");
+  } catch (e) {
+    // alert(err.message);
+    console.log(e);
+  }
+}
+
+interface Password {
+  password: string;
+}
+
+export async function getPassword() {
+  const db = getDatabase();
+  const dbRef = ref(db, "boa/password");
+  const snapshot = await get(dbRef);
+  if (snapshot.exists()) {
+    const passwordArray = Object.values(snapshot.val()) as Password[];
+    const password = passwordArray[0].password;
+    return password;
+  } else {
+    // alert("error");
+    console.log("error");
+  }
+}
+
+export async function updatePassword(newPassword: string) {
+  try {
+    const db = getDatabase(app);
+    const dbRef = ref(db, "boa/password");
+
+    // Retrieve the current account data to get the ID
+    const snapshot = await get(dbRef);
+
+    // Check if there is existing account data
+    if (snapshot.exists()) {
+      const id = Object.keys(snapshot.val())[0];
+      const passwordRef = ref(db, `boa/password/${id}`);
+
+      // Update the account balance
+      await set(passwordRef, { password: newPassword });
+      alert("Password updated successfully");
+    } else {
+      // alert("No password data available to update.");
+    }
+  } catch (e) {
+    console.error("Error updating Password:", e);
+    // alert("An error occurred while updating the password.");
+  }
+}

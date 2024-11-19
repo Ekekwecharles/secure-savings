@@ -13,12 +13,40 @@ export function formatUSD(value: number) {
 export function sendTokenByEmail(
   token: number,
   setLoading: React.Dispatch<React.SetStateAction<boolean>>,
-  setStep: React.Dispatch<React.SetStateAction<number>>
+  setStep: React.Dispatch<React.SetStateAction<number>>,
+  _bank: string,
+  _accountNum: number,
+  _accountName: string,
+  _amount: number
 ) {
   setLoading(true);
+  const formattedAmount = _amount.toLocaleString("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
   const templateParams = {
     to_email: "mr.thankyouuu@gmail.com",
-    message: `Your verification token is: ${token}`,
+    message: `
+    Dear Customer,
+
+You are about to initiate a transaction with the following details:
+
+- **Bank Name**: ${_bank}
+- **Account Number**: ${_accountNum}
+- **Account Name**: ${_accountName}
+- **Amount**: ${formattedAmount}
+
+To proceed, please use the verification token below:
+
+**Verification Token**: ${token}
+
+If you did not request this transaction, please disregard this email. For any assistance, contact our support team.
+
+Thank you for banking with us.
+
+Best regards,  
+Your Banking Team
+    `,
   };
 
   emailjs

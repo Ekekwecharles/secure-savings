@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import styled from "styled-components";
 import { GrHomeRounded } from "react-icons/gr";
@@ -8,6 +8,8 @@ import { IoSettingsSharp } from "react-icons/io5";
 import { IoLogOut } from "react-icons/io5";
 import { PiHandWavingFill } from "react-icons/pi";
 import { PiBellSimpleRingingFill } from "react-icons/pi";
+import { RxHamburgerMenu } from "react-icons/rx";
+import { RxCross2 } from "react-icons/rx";
 
 import { Navigate, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useTransferContext } from "../context/TransferContext";
@@ -23,7 +25,9 @@ const BankingContainer = styled.div`
   height: 100vh;
 
   @media (max-width: 37.5em) {
-    grid-template-columns: 16rem 1fr;
+    /* grid-template-columns: 16rem 1fr; */
+    position: relative;
+    grid-template-columns: 1fr;
   }
 
   img {
@@ -31,13 +35,16 @@ const BankingContainer = styled.div`
   }
 `;
 
-const Sidebar = styled.div`
+const Sidebar = styled.div<SidebarProps>`
   padding: 2rem;
-  /* border: 1px solid red; */
 
   @media (max-width: 37.5em) {
-    /* padding: 1rem; */
-    padding: 6px;
+    position: absolute;
+    background-color: white;
+    height: 100%;
+    transition: all 0.3s ease-out;
+    transform: ${(props) =>
+      props.showMobileNav ? "translateX(-100%)" : "translateX(0)"};
   }
 `;
 
@@ -147,10 +154,7 @@ const BankingNav = styled.div`
   gap: 3.5rem;
   margin-top: 3rem;
   font-size: 1.5rem;
-
-  @media (max-width: 37.5em) {
-    padding: 2rem 4px;
-  }
+  /* border: 1px solid red; */
 
   svg {
     fill: gray;
@@ -163,10 +167,6 @@ const BankingNav = styled.div`
     display: flex;
     align-items: center;
     gap: 1rem;
-
-    @media (max-width: 37.5em) {
-      gap: 0.6rem;
-    }
   }
 `;
 
@@ -237,10 +237,6 @@ const LogoContainer = styled.div`
 
   div {
     font-size: 1.6rem;
-
-    @media (max-width: 37.5em) {
-      font-size: 1.3rem;
-    }
   }
 
   img {
@@ -253,6 +249,23 @@ const LogoContainer = styled.div`
   }
 `;
 
+const MobileNav = styled.div`
+  display: none;
+  margin: 0 2rem;
+
+  svg {
+    font-size: 3rem;
+  }
+
+  @media (max-width: 37.5em) {
+    display: block;
+  }
+`;
+
+interface SidebarProps {
+  showMobileNav: boolean;
+}
+
 export default function Banking() {
   const {
     setTransactionMessages,
@@ -262,6 +275,7 @@ export default function Banking() {
   } = useTransferContext();
   const navigate = useNavigate();
   const { logout, startTimer, timeLeft } = useAuth();
+  const [showMobileNav, setShowMobileNav] = useState(true);
 
   useEffect(
     function () {
@@ -294,7 +308,7 @@ export default function Banking() {
 
   return (
     <BankingContainer>
-      <Sidebar>
+      <Sidebar showMobileNav={showMobileNav}>
         <div>
           <LogoContainer onClick={() => navigate("/")}>
             <Logo />
@@ -334,6 +348,17 @@ export default function Banking() {
               <div>Sergey Kosenko</div>
               <div>mr.thankyouuu@gmail.com</div>
             </NameEmailContainer>
+
+            <MobileNav>
+              {showMobileNav && (
+                <RxHamburgerMenu
+                  onClick={() => setShowMobileNav((val) => !val)}
+                />
+              )}
+              {!showMobileNav && (
+                <RxCross2 onClick={() => setShowMobileNav((val) => !val)} />
+              )}
+            </MobileNav>
           </Profile>
         </Header>
         <OutletContainer>
