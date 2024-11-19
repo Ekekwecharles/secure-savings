@@ -194,7 +194,7 @@ export default function Login() {
       setIsAuthenticated(true);
       setLoading(false); // Hide loader
       navigate("/banking");
-    }, 20000); // 20-second delay 200000
+    }, 10000); // 10-second delay 100000
   }
 
   return (

@@ -140,12 +140,18 @@ const BankingOptions = styled.div`
   @media (max-width: 37.5em) {
     justify-content: flex-start;
     gap: 1rem;
+    padding: 1rem;
   }
 
   div {
     width: 15rem;
     padding: 1rem;
     cursor: pointer;
+    /* border: 1px solid red; */
+
+    @media (max-width: 37.5em) {
+      width: 14rem;
+    }
   }
 `;
 

@@ -20,6 +20,7 @@ const BankingContainer = styled.div`
   display: grid;
   grid-template-columns: 22rem 1fr;
   position: relative;
+  height: 100vh;
 
   @media (max-width: 37.5em) {
     grid-template-columns: 16rem 1fr;
