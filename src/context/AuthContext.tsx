@@ -23,7 +23,7 @@ interface AuthProviderProps {
 
 function AuthProvider({ children }: AuthProviderProps) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(300);
+  const [timeLeft, setTimeLeft] = useState(480);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const logout = useCallback(() => {
@@ -40,7 +40,7 @@ function AuthProvider({ children }: AuthProviderProps) {
 
   const startTimer = useCallback(() => {
     clearTimer();
-    setTimeLeft(300);
+    setTimeLeft(480);
     timerRef.current = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev <= 1) {

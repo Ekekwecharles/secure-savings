@@ -358,7 +358,7 @@ export default function TransferPage() {
           <Input
             type="number"
             placeholder="Beneficiary account number"
-            value={accountNum}
+            value={accountNum ?? ""}
             onChange={(e) =>
               setAccountNum(
                 e.target.value ? parseInt(e.target.value) : undefined

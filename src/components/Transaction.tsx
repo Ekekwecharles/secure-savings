@@ -39,7 +39,6 @@ type TransactionProps = {
 export default function Transaction({ date, value }: TransactionProps) {
   function format(date: string) {
     const _date = new Date(date);
-    console.log("_DATE", String(_date));
     if (String(_date) === "Invalid Date") return;
 
     const newDate = new Intl.DateTimeFormat("en", {

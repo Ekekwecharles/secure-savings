@@ -30,6 +30,7 @@ const Grid = styled.div`
 
   @media (max-width: 37.5em) {
     gap: 1.5rem;
+    grid-template-columns: 1fr;
   }
 `;
 
@@ -111,6 +112,7 @@ const RecentTransfer = styled.div`
 
   p {
     margin-bottom: 1rem;
+    font-weight: bolder;
   }
 
   div {
@@ -164,7 +166,6 @@ const BankingOption = styled.div<{ isActive: boolean }>`
 const CardContainer = styled.div``;
 
 export default function BankingHome() {
-  console.log("Banking home is called");
   const [showBal, setShowBal] = useState(false);
   const [activeCategory, setActiveCategory] = useState("account");
   const [lastTransaction, setLastTransaction] = useState<
@@ -182,9 +183,8 @@ export default function BankingHome() {
         [],
       ];
       setLastTransaction(_lastTransaction);
-      console.log("LAST TRANSACTION", lastTransaction, transactionMessages);
     },
-    [lastTransaction, transactionMessages]
+    [transactionMessages]
   );
 
   useEffect(

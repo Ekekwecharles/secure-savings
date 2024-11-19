@@ -32,10 +32,11 @@ const BankingContainer = styled.div`
 
 const Sidebar = styled.div`
   padding: 2rem;
-  /* border-right: 1px solid gray; */
+  /* border: 1px solid red; */
 
   @media (max-width: 37.5em) {
-    padding: 1rem;
+    /* padding: 1rem; */
+    padding: 6px;
   }
 `;
 
@@ -90,6 +91,12 @@ const NameAbbr = styled.div`
   color: white;
   font-size: 1.6rem;
   letter-spacing: 3px;
+
+  @media (max-width: 37.5em) {
+    height: 3rem;
+    width: 3rem;
+    font-size: 1.3rem;
+  }
 `;
 
 const NameEmailContainer = styled.div`
@@ -97,6 +104,10 @@ const NameEmailContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
+  @media (max-width: 37.5em) {
+    gap: 0.3rem;
+  }
 
   div:first-child {
     font-weight: bolder;
@@ -116,6 +127,10 @@ const Hello = styled.div`
   display: flex;
   gap: 0.7rem;
   align-items: center;
+
+  @media (max-width: 37.5em) {
+    gap: 2px;
+  }
 
   span {
     font-weight: bolder;
@@ -147,6 +162,10 @@ const BankingNav = styled.div`
     display: flex;
     align-items: center;
     gap: 1rem;
+
+    @media (max-width: 37.5em) {
+      gap: 0.6rem;
+    }
   }
 `;
 
@@ -210,6 +229,7 @@ const TimerDisplay = styled.div`
 `;
 
 const LogoContainer = styled.div`
+  margin-top: 3rem;
   display: flex;
   justify-content: center;
   cursor: pointer;
@@ -321,7 +341,7 @@ export default function Banking() {
         <TimerDisplay>
           <div>
             <h4>
-              For your security, you will be logged out after 5 minutes of
+              For your security, you will be logged out after 8 minutes of
               inactivity.
             </h4>
             <p>
