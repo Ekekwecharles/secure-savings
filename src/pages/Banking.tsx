@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import styled from "styled-components";
 import { GrHomeRounded } from "react-icons/gr";
@@ -45,6 +45,8 @@ const Sidebar = styled.div<SidebarProps>`
     transition: all 0.3s ease-out;
     transform: ${(props) =>
       props.showMobileNav ? "translateX(-100%)" : "translateX(0)"};
+    /* transform: ${(props) =>
+      props.showMobileNav ? "translateX(0)" : "translateX(-100%)"}; */
   }
 `;
 
@@ -252,6 +254,7 @@ const LogoContainer = styled.div`
 const MobileNav = styled.div`
   display: none;
   margin: 0 2rem;
+  cursor: pointer;
 
   svg {
     font-size: 3rem;
@@ -276,6 +279,27 @@ export default function Banking() {
   const navigate = useNavigate();
   const { logout, startTimer, timeLeft } = useAuth();
   const [showMobileNav, setShowMobileNav] = useState(true);
+  const sidebarRef = useRef<HTMLDivElement>(null);
+
+  // Close sidebar when clicking outside
+  useEffect(() => {
+    function handleOutsideClick(event: MouseEvent) {
+      if (
+        sidebarRef.current &&
+        !sidebarRef.current.contains(event.target as Node)
+      ) {
+        setShowMobileNav(true); // Close sidebar
+      }
+    }
+
+    if (!showMobileNav) {
+      document.addEventListener("click", handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, [showMobileNav]);
 
   useEffect(
     function () {
@@ -308,7 +332,7 @@ export default function Banking() {
 
   return (
     <BankingContainer>
-      <Sidebar showMobileNav={showMobileNav}>
+      <Sidebar ref={sidebarRef} showMobileNav={showMobileNav}>
         <div>
           <LogoContainer onClick={() => navigate("/")}>
             <Logo />
@@ -349,15 +373,14 @@ export default function Banking() {
               <div>mr.thankyouuu@gmail.com</div>
             </NameEmailContainer>
 
-            <MobileNav>
-              {showMobileNav && (
-                <RxHamburgerMenu
-                  onClick={() => setShowMobileNav((val) => !val)}
-                />
-              )}
-              {!showMobileNav && (
-                <RxCross2 onClick={() => setShowMobileNav((val) => !val)} />
-              )}
+            <MobileNav
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowMobileNav((val) => !val);
+              }}
+            >
+              {showMobileNav && <RxHamburgerMenu />}
+              {!showMobileNav && <RxCross2 />}
             </MobileNav>
           </Profile>
         </Header>

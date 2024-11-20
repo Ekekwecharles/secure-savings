@@ -275,10 +275,17 @@ export default function TransferPage() {
   const [step, setStep] = useState(1);
   const [accountName, setAccountName] = useState("");
 
-  let _bank: string;
-  let _accountNum: number;
-  let _accountName: string;
-  let _amount: number;
+  const [savedTransaction, setSavedTransaction] = useState({
+    bank: "",
+    accountNum: 0,
+    accountName: "",
+    amount: 0,
+  });
+
+  // let _bank: string;
+  // let _accountNum: number;
+  // let _accountName: string;
+  // let _amount: number;
 
   const accountMap: { [key: number]: string } = {
     138567491234: "Kuwait Petroleum Corporation (KPC)",
@@ -338,10 +345,17 @@ export default function TransferPage() {
       return;
     }
 
-    _bank = searchTerm;
-    _accountNum = accountNum;
-    _accountName = accountName;
-    _amount = amount;
+    // _bank = searchTerm;
+    // _accountNum = accountNum;
+    // _accountName = accountName;
+    // _amount = amount;
+
+    setSavedTransaction({
+      bank: searchTerm,
+      accountNum: accountNum!,
+      accountName,
+      amount: amount!,
+    });
 
     setSaveAccountNum(accountNum!);
     setShowGetToken(true);
@@ -357,14 +371,15 @@ export default function TransferPage() {
   function generateToken() {
     const _token = Math.floor(100000 + Math.random() * 900000);
     setToken(_token);
+    const { bank, accountNum, accountName, amount } = savedTransaction;
     sendTokenByEmail(
       _token,
       setLoading,
       setStep,
-      _bank,
-      _accountNum,
-      _accountName,
-      _amount
+      bank,
+      accountNum,
+      accountName,
+      amount
     );
   }
 

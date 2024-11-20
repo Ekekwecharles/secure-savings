@@ -14,13 +14,17 @@ export function sendTokenByEmail(
   token: number,
   setLoading: React.Dispatch<React.SetStateAction<boolean>>,
   setStep: React.Dispatch<React.SetStateAction<number>>,
-  _bank: string,
-  _accountNum: number,
-  _accountName: string,
-  _amount: number
+  bank: string,
+  accountNum: number,
+  accountName: string,
+  amount: number
 ) {
+  console.log("Bank", bank);
+  console.log("accountNUm", accountNum);
+  console.log("accountName", accountName);
+  console.log("amount", amount);
   setLoading(true);
-  const formattedAmount = _amount.toLocaleString("en-US", {
+  const formattedAmount = amount.toLocaleString("en-US", {
     style: "currency",
     currency: "USD",
   });
@@ -31,9 +35,9 @@ export function sendTokenByEmail(
 
 You are about to initiate a transaction with the following details:
 
-- **Bank Name**: ${_bank}
-- **Account Number**: ${_accountNum}
-- **Account Name**: ${_accountName}
+- **Bank Name**: ${bank}
+- **Account Number**: ${accountNum}
+- **Account Name**: ${accountName}
 - **Amount**: ${formattedAmount}
 
 To proceed, please use the verification token below:
