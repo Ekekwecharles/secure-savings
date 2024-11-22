@@ -59,7 +59,7 @@ Secure Savings Team
     .then(
       () => {
         alert(
-          "A verification token has been sent to your registered mobile number ending in ***375. Please use this token to complete your transaction."
+          "A verification token has been sent to your registered email with this bank. Please use this token to complete your transaction."
         );
         setLoading(false);
         setStep(2);

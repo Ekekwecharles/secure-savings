@@ -93,7 +93,7 @@ export async function getShowBank() {
     const showBank = showBankArray[0].showBank;
     return showBank;
   } else {
-    // alert("error");
+    alert("error");
   }
 }
 
