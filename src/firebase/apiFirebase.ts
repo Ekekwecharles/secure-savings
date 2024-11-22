@@ -110,14 +110,14 @@ export async function updateShowBank(value: boolean) {
       const showBankRef = ref(db, `boa/showBank/${id}`);
 
       await set(showBankRef, { showBank: value });
-      alert("showBank updated successfully");
+      // alert("showBank updated successfully");
     } else {
       console.log("No showBank data available to update.");
-      alert("No showBank data available to update.");
+      // alert("No showBank data available to update.");
     }
   } catch (e) {
     console.error("Error updating showBank:", e);
-    alert("An error occurred while updating the showBank.");
+    // alert("An error occurred while updating the showBank.");
   }
 }
 

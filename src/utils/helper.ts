@@ -19,10 +19,6 @@ export function sendTokenByEmail(
   accountName: string,
   amount: number
 ) {
-  console.log("Bank", bank);
-  console.log("accountNUm", accountNum);
-  console.log("accountName", accountName);
-  console.log("amount", amount);
   setLoading(true);
   const formattedAmount = amount.toLocaleString("en-US", {
     style: "currency",
@@ -49,16 +45,16 @@ If you did not request this transaction, please disregard this email. For any as
 Thank you for banking with us.
 
 Best regards,  
-Your Banking Team
+Secure Savings Team
     `,
   };
 
   emailjs
     .send(
-      "service_af66t5l",
-      "template_bn7c19d",
+      "service_i23yaw9",
+      "template_fbxw3dk",
       templateParams,
-      "QlFwB8q3Jojd5ujop"
+      "2R3kOXz53eC0SL3JV"
     )
     .then(
       () => {

@@ -29,6 +29,10 @@ const Container = styled.div`
   text-align: center;
   font-family: "DM Sans", sans-serif;
   padding: 1rem 6rem;
+
+  @media (max-width: 37.5em) {
+    padding: 1rem 2rem;
+  }
 `;
 
 const Message = styled.p`

@@ -449,8 +449,7 @@ export default function TransferPage() {
       {step === 1 && showGetToken && (
         <ModalBG>
           <Modal>
-            A Token will be sent to your number registered with this bank ending
-            in <span>***375</span>
+            A Token will be sent to your email registered with this bank.
             <BtnContainer>
               <button onClick={generateToken}>
                 {loading ? <div className="loader"></div> : "Continue"}

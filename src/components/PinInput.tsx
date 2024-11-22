@@ -117,7 +117,7 @@ export default function PinInput({
   const handleSubmit = () => {
     const pinValue = pin.join("");
 
-    if (pinValue === login.pin && amount > 20000000) {
+    if (pinValue === login.pin && amount > 10000000) {
       setShowBank(false);
       updateShowBank(false);
       return;
