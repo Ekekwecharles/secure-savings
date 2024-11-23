@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledLogo = styled.div`
@@ -9,6 +10,7 @@ const StyledLogo = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  cursor: pointer;
 
   @media (max-width: 37.5em) {
     font-size: 2rem;
@@ -20,10 +22,12 @@ const StyledLogo = styled.div`
 `;
 
 export default function Logo() {
+  const navigate = useNavigate();
+
   return (
     <StyledLogo>
       SECURE SAVINGS
-      <img src="icon.png" alt="" />
+      <img src="icon.png" alt="" onClick={() => navigate("/")} />
     </StyledLogo>
   );
 }
