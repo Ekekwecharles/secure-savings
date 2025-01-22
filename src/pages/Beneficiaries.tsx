@@ -5,6 +5,10 @@ const PageNotAvailable = styled.div`
   margin-left: 5rem;
   font-weight: 500;
   font-size: 1.8rem;
+
+  @media (max-width: 37.5em) {
+    margin-left: 1.5rem;
+  }
 `;
 
 export default function Beneficiaries() {
