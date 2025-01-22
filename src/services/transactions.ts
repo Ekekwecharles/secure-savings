@@ -1,5 +1,5 @@
-import { add, format } from "date-fns";
-import { faker } from "@faker-js/faker";
+// import { add, format } from "date-fns";
+// import { faker } from "@faker-js/faker";
 import { getTransactionsMessages } from "../firebase/apiFirebase";
 
 const transactionData = [
