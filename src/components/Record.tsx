@@ -88,7 +88,7 @@ export default function Record({ value }: RecordProps) {
           <div>
             {value.status === "Credit"
               ? `Transfer from ${value.sender}`
-              : `TRF FRM SERGEY KOSENKO TO ${value.receiver} `}
+              : `TRF FRM KIM CHOON-HEE TO ${value.receiver} `}
           </div>
           <div>{value.referenceCode}</div>
         </div>

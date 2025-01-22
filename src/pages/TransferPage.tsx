@@ -103,6 +103,7 @@ const InputErrors = styled.p`
 
 const ModalBG = styled.div`
   width: 100%;
+  width: 100vw;
   height: 100vh;
   /* z-index: 100; */
   background-color: #aaaaaa9d;

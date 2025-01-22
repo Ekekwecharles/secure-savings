@@ -265,6 +265,22 @@ const MobileNav = styled.div`
   }
 `;
 
+const ProfilePicsContainer = styled.div`
+  border: 2px solid #d30b29;
+  height: 5rem;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+`;
+
+const ProfilePics = styled.img`
+  display: block;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 50%;
+`;
+
 interface SidebarProps {
   showMobileNav: boolean;
 }
@@ -360,17 +376,20 @@ export default function Banking() {
       <Main>
         <Header>
           <Hello>
-            Hello, <span>Sergey</span>
+            Hello, <span>Choon-hee</span>
             <PiHandWavingFill style={{ fill: "#e31837", fontSize: "3rem" }} />
           </Hello>
 
           <Profile>
             <PiBellSimpleRingingFill />
 
-            <NameAbbr>SK</NameAbbr>
+            {/* <NameAbbr>SK</NameAbbr> */}
+            <ProfilePicsContainer>
+              <ProfilePics src="profile-pics.jpg" />
+            </ProfilePicsContainer>
             <NameEmailContainer>
-              <div>Sergey Kosenko</div>
-              <div>mr.thankyouuu@gmail.com</div>
+              <div>Kim Choon-hee</div>
+              <div>kimchoonhee@gmail.com</div>
             </NameEmailContainer>
 
             <MobileNav

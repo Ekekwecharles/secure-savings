@@ -220,7 +220,7 @@ export default function BankingHome() {
               {showBal ? (
                 <p>{accountBalance.toLocaleString()}</p>
               ) : (
-                <p>**********</p>
+                <p>*******</p>
               )}
             </p>
             <EyeBtn onClick={() => setShowBal((value) => !value)}>
