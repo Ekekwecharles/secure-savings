@@ -140,12 +140,24 @@ const Hello = styled.div`
 
   @media (max-width: 37.5em) {
     gap: 2px;
+    font-size: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   span {
     font-weight: bolder;
     color: #252525;
     letter-spacing: 0.2rem;
+
+    @media (max-width: 37.5em) {
+      letter-spacing: 0.1rem;
+    }
   }
 `;
 
@@ -376,8 +388,11 @@ export default function Banking() {
       <Main>
         <Header>
           <Hello>
-            Hello, <span>Choon-hee</span>
-            <PiHandWavingFill style={{ fill: "#e31837", fontSize: "3rem" }} />
+            Hello,{" "}
+            <div>
+              <span>Choon-hee</span>
+              <PiHandWavingFill style={{ fill: "#e31837", fontSize: "3rem" }} />
+            </div>
           </Hello>
 
           <Profile>
