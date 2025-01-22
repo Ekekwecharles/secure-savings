@@ -89,25 +89,25 @@ const Profile = styled.div`
   }
 `;
 
-const NameAbbr = styled.div`
-  height: 4rem;
-  width: 4rem;
-  /* background-color: #c41230; */
-  background-color: #e31837;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  color: white;
-  font-size: 1.6rem;
-  letter-spacing: 3px;
+// const NameAbbr = styled.div`
+//   height: 4rem;
+//   width: 4rem;
+//   /* background-color: #c41230; */
+//   background-color: #e31837;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   border-radius: 50%;
+//   color: white;
+//   font-size: 1.6rem;
+//   letter-spacing: 3px;
 
-  @media (max-width: 37.5em) {
-    height: 3rem;
-    width: 3rem;
-    font-size: 1.3rem;
-  }
-`;
+//   @media (max-width: 37.5em) {
+//     height: 3rem;
+//     width: 3rem;
+//     font-size: 1.3rem;
+//   }
+// `;
 
 const NameEmailContainer = styled.div`
   font-size: 1.4rem;
