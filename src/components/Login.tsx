@@ -6,6 +6,7 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { getPassword } from "../firebase/apiFirebase";
+import { allowedProfiles } from "../utils/profile";
 
 const StyledLoginForm = styled.div`
   color: white;
@@ -168,8 +169,6 @@ export const login = {
 };
 
 export default function Login() {
-  // const [username, setUsername] = useState("");
-  // const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
@@ -177,7 +176,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [savedPassword, setSavedPassword] = useState("");
 
-  const { setIsAuthenticated } = useAuth();
+  const { setProfile, setIsAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   useEffect(function () {
@@ -193,11 +192,19 @@ export default function Login() {
     e.preventDefault();
     if (!username && !password) return;
 
-    if (username !== login.username && password !== savedPassword) {
+    const profile = allowedProfiles.find((user) => user.email === username);
+
+    // if (username !== login.username && password !== savedPassword) {
+    //   setError(true);
+    //   return;
+    // }
+
+    if (!profile || password !== savedPassword) {
       setError(true);
       return;
     }
 
+    setProfile(profile);
     setLoading(true);
 
     setTimeout(() => {

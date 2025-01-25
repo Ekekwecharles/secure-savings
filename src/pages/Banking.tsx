@@ -308,6 +308,7 @@ export default function Banking() {
   const { logout, startTimer, timeLeft } = useAuth();
   const [showMobileNav, setShowMobileNav] = useState(true);
   const sidebarRef = useRef<HTMLDivElement>(null);
+  const { profile } = useAuth();
 
   // Close sidebar when clicking outside
   useEffect(() => {
@@ -390,7 +391,7 @@ export default function Banking() {
           <Hello>
             Hello,{" "}
             <div>
-              <span>Choon-hee</span>
+              <span>{profile?.name}</span>
               <PiHandWavingFill style={{ fill: "#e31837", fontSize: "3rem" }} />
             </div>
           </Hello>
@@ -400,11 +401,11 @@ export default function Banking() {
 
             {/* <NameAbbr>SK</NameAbbr> */}
             <ProfilePicsContainer>
-              <ProfilePics src="profile-pics.jpg" />
+              <ProfilePics src={profile?.image} />
             </ProfilePicsContainer>
             <NameEmailContainer>
-              <div>Kim Choon-hee</div>
-              <div>kimchoonhee@gmail.com</div>
+              <div>{profile?.fullName}</div>
+              <div>{profile?.email}</div>
             </NameEmailContainer>
 
             <MobileNav

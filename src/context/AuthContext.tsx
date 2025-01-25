@@ -13,6 +13,15 @@ interface AuthContextType {
   startTimer: () => void;
   resetTimer: () => void;
   timeLeft: number;
+  profile: Profile | null;
+  setProfile: React.Dispatch<React.SetStateAction<Profile | null>>;
+}
+
+interface Profile {
+  email: string;
+  fullName: string;
+  name: string;
+  image: string;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -25,6 +34,7 @@ function AuthProvider({ children }: AuthProviderProps) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [timeLeft, setTimeLeft] = useState(480);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const [profile, setProfile] = useState<Profile | null>(null);
 
   const logout = useCallback(() => {
     setIsAuthenticated(false);
@@ -66,6 +76,8 @@ function AuthProvider({ children }: AuthProviderProps) {
         startTimer,
         resetTimer,
         timeLeft,
+        profile,
+        setProfile,
       }}
     >
       {children}

@@ -1,6 +1,7 @@
 import { TbFileInvoice } from "react-icons/tb";
 import styled from "styled-components";
 import { formatUSD } from "../utils/helper";
+import { useAuth } from "../context/AuthContext";
 
 const StyledRecord = styled.div`
   display: flex;
@@ -78,6 +79,8 @@ type RecordProps = {
 };
 
 export default function Record({ value }: RecordProps) {
+  const { profile } = useAuth();
+
   return (
     <StyledRecord>
       <Flex>
@@ -88,7 +91,9 @@ export default function Record({ value }: RecordProps) {
           <div>
             {value.status === "Credit"
               ? `Transfer from ${value.sender}`
-              : `TRF FRM KIM CHOON-HEE TO ${value.receiver} `}
+              : `TRF FRM ${profile?.fullName.toUpperCase()} TO ${
+                  value.receiver
+                } `}
           </div>
           <div>{value.referenceCode}</div>
         </div>
