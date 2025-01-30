@@ -113,6 +113,31 @@ export default function PinInput({
     }
   };
 
+  function handleKeyDown(
+    e: React.KeyboardEvent<HTMLInputElement>,
+    index: number
+  ) {
+    if (e.key === "Backspace") {
+      const newPin = [...pin];
+
+      if (newPin[index] !== "") {
+        //clear the current box
+        newPin[index] = "";
+      } else if (index > 0) {
+        // Move focus to the previous box
+        newPin[index - 1] = "";
+        document.getElementById(`token-input-${index - 1}`)?.focus();
+      }
+
+      setPin(newPin);
+    }
+
+    // Auto-submit on Enter if all boxes are filled
+    if (e.key === "Enter" && !pin.includes("")) {
+      handleSubmit();
+    }
+  }
+
   // Function to handle form submission
   const handleSubmit = () => {
     const pinValue = pin.join("");
@@ -190,6 +215,7 @@ export default function PinInput({
             maxLength={1}
             value={value}
             onChange={(e) => handleChange(e, index)}
+            onKeyDown={(e) => handleKeyDown(e, index)}
           />
         ))}
       </InputContainer>

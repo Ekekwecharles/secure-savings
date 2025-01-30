@@ -1,5 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { getSuspendedStatus } from "../firebase/apiFirebase";
+import { useNavigate } from "react-router-dom";
 
 const StyledTokenInput = styled.div`
   h3 {
@@ -69,6 +71,8 @@ export default function TokenInput({
   generatedToken,
   setStep,
 }: TokenInputProps) {
+  const navigate = useNavigate();
+
   const [token, setToken] = useState<string[]>(["", "", "", "", "", ""]); // Holds values for each of the 6 boxes
 
   // Function to handle the change in each input box
@@ -92,11 +96,44 @@ export default function TokenInput({
     }
   };
 
+  function handleKeyDown(
+    e: React.KeyboardEvent<HTMLInputElement>,
+    index: number
+  ) {
+    if (e.key === "Backspace") {
+      const newToken = [...token];
+
+      if (newToken[index] !== "") {
+        //clear the current box
+        newToken[index] = "";
+      } else if (index > 0) {
+        // Move focus to the previous box
+        newToken[index - 1] = "";
+        document.getElementById(`token-input-${index - 1}`)?.focus();
+      }
+
+      setToken(newToken);
+    }
+
+    // Auto-submit on Enter if all boxes are filled
+    if (e.key === "Enter" && !token.includes("")) {
+      handleSubmit();
+    }
+  }
+
   // Function to handle form submission
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    // Fetch suspended status
+    const isSuspended = await getSuspendedStatus();
+
+    //Token Validation
     const tokenValue = token.join("");
 
     if (parseInt(tokenValue) === generatedToken) {
+      if (isSuspended) {
+        navigate("/account-suspension");
+        return;
+      }
       setStep(3);
     } else {
       alert("Invalid Token");
@@ -116,6 +153,7 @@ export default function TokenInput({
             maxLength={1}
             value={value}
             onChange={(e) => handleChange(e, index)}
+            onKeyDown={(e) => handleKeyDown(e, index)}
             style={{}}
           />
         ))}

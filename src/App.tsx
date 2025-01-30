@@ -14,6 +14,7 @@ import "./services/transactions.ts";
 import TransferPage from "./pages/TransferPage.tsx";
 import ViolationPage from "./pages/ViolationPage.tsx";
 import ErrorPage from "./pages/ErrorPage.tsx";
+import SuspensionPage from "./pages/SuspensionPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,11 @@ const router = createBrowserRouter([
       {
         path: "/international-transaction-violation",
         element: <ViolationPage />,
+      },
+
+      {
+        path: "/account-suspension",
+        element: <SuspensionPage />,
       },
     ],
   },

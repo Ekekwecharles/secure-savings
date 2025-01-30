@@ -199,7 +199,7 @@ export default function Login() {
     //   return;
     // }
 
-    if (!profile || password !== savedPassword) {
+    if (!profile || password.trim() !== savedPassword) {
       setError(true);
       return;
     }

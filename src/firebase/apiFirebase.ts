@@ -39,6 +39,24 @@ export async function getAccountBalance() {
   }
 }
 
+export async function getSuspendedStatus() {
+  const db = getDatabase();
+  const suspendedRef = ref(db, "boa/suspended");
+
+  try {
+    const snapshot = await get(suspendedRef);
+    if (snapshot.exists()) {
+      return snapshot.val(); // Returns true or false
+    } else {
+      console.log("Suspended status not found");
+      return null; // Handle missing data
+    }
+  } catch (error) {
+    console.error("Error fetching suspended status:", error);
+    return null;
+  }
+}
+
 export async function updateAccountBalance(newAccountBalance: number) {
   try {
     const db = getDatabase(app);
