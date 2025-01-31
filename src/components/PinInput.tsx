@@ -126,7 +126,7 @@ export default function PinInput({
       } else if (index > 0) {
         // Move focus to the previous box
         newPin[index - 1] = "";
-        document.getElementById(`token-input-${index - 1}`)?.focus();
+        document.getElementById(`pin-input-${index - 1}`)?.focus();
       }
 
       setPin(newPin);
