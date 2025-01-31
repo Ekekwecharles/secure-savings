@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { getSuspendedStatus } from "../firebase/apiFirebase";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const StyledTokenInput = styled.div`
   h3 {
@@ -72,6 +73,7 @@ export default function TokenInput({
   setStep,
 }: TokenInputProps) {
   const navigate = useNavigate();
+  const { logout } = useAuth();
 
   const [token, setToken] = useState<string[]>(["", "", "", "", "", ""]); // Holds values for each of the 6 boxes
 
@@ -132,6 +134,7 @@ export default function TokenInput({
     if (parseInt(tokenValue) === generatedToken) {
       if (isSuspended) {
         navigate("/account-suspension");
+        logout();
         return;
       }
       setStep(3);
