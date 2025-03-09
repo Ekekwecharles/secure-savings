@@ -115,6 +115,10 @@ export default function Footer() {
         </SocialLink>
       </SocialLinks>
       <p>Secure Savings, N.A. Member FDIC. Equal Housing Lender</p>
+      <p>
+        This website is for educational purposes only. It does not provide real
+        financial services
+      </p>
       <p>© 2024 Secure Savings Corporation. All rights reserved.</p>
       <p>Patent: patents.securesavings.com</p>
     </StyledFooter>
