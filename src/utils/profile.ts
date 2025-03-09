@@ -11,4 +11,16 @@ export const allowedProfiles = [
     name: "Sergey",
     image: "thankyou.jpg",
   },
+  {
+    email: "alexajsanttos@gmail.com",
+    fullName: "Alexa Santtos",
+    name: "Alexa",
+    image: "alexa.jpg",
+  },
+  {
+    email: "robertkiyosaki@gmail.com",
+    fullName: "Robert Kiyosaki",
+    name: "Robert",
+    image: "robert.jpg",
+  },
 ];
