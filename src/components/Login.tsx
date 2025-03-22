@@ -192,7 +192,9 @@ export default function Login() {
     e.preventDefault();
     if (!username && !password) return;
 
-    const profile = allowedProfiles.find((user) => user.email === username);
+    const profile = allowedProfiles.find(
+      (user) => user.email === username.trim()
+    );
 
     // if (username !== login.username && password !== savedPassword) {
     //   setError(true);
